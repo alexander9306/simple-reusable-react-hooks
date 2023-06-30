@@ -5,25 +5,24 @@ const useScreenSize = () => {
     "sm" | "md" | "lg" | "lg" | "xl" | "2xl"
   >("lg");
 
-  const updateScreenSize = () => {
+  const getScreenSize = () => {
     const { innerWidth } = window;
 
-    if (innerWidth < 640) {
-      setScreenSize("sm");
-    } else if (innerWidth < 768) {
-      setScreenSize("md");
-    } else if (innerWidth < 1024) {
-      setScreenSize("lg");
-    } else if (innerWidth < 1280) {
-      setScreenSize("xl");
-    } else {
-      setScreenSize("2xl");
-    }
+    if (innerWidth < 640) return "sm"
+    
+    if (innerWidth < 768) return "md"
+    
+    if (innerWidth < 1024) return "lg"
+    
+    if (innerWidth < 1280) return "xl"
+
+    return "2xl"
   };
 
   useEffect(() => {
-    updateScreenSize();
-    const handleResize = () => updateScreenSize();
+    const handleResize = () => setScreenSize(getScreenSize())
+    handleResize()
+    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
